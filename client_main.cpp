@@ -11,7 +11,17 @@ int main(int argc, char** argv)
 		std::cout << "Client connected\n";
 	}
 
-	//m_client.Listen();
+	char message[26] = "Hello from the other side";
+	ssize_t bytes_sent = m_client.Send(message, strlen(message));
+
+	if (strlen(message) == bytes_sent)
+	{
+		std::cout << "Successfully sent " << bytes_sent << " bytes" << std::endl;
+	}
+	else
+	{
+		std::cerr << "Error sending message" << std::endl;
+	}
 
 	return 0;
 }

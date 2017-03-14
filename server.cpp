@@ -5,7 +5,15 @@
 
 #include "server.h"
 
-bool Server::Connect(int port)
+
+Server::Server()
+	: m_socket(0)
+	, m_client_socket(0)
+{
+}
+
+
+bool Server::Connect(const int port)
 {
 	struct sockaddr_in addr;
 
@@ -32,40 +40,35 @@ bool Server::Connect(int port)
     return true;
 }
 
-int Server::Listen()
+
+int Server::CloseClientSocket()
+{
+	return close(m_client_socket);
+}
+
+
+bool Server::Listen()
 {
 	if (0 == m_socket)
 	{
-		return -1;
+		return false;
 	}
 
-	while(true)
+	struct sockaddr_in addr;
+	uint len = sizeof(addr);
+
+	m_client_socket = accept(m_socket, (struct sockaddr*)&addr, &len);
+	if (-1 == m_client_socket)
 	{
-		struct sockaddr_in addr;
-		uint len = sizeof(addr);
-		
-		int client = accept(m_socket, (struct sockaddr*)&addr, &len);
-		if (-1 == client)
-		{
-			std::cerr << "Unable to accept\n";
-			return 1;
-		}
-
-		// child thread code
-		if (!fork())
-		{
-			close(m_socket);
-			if (send(client, "Hello World!", 13, 0) == -1)
-			{
-				std::cerr << "Unable to send\n";
-			}
-			close(client);
-			exit(0);
-		}
-		// end child thread code
-
-		close(client);
+		std::cerr << "Unable to accept\n";
+		return false;
 	}
 
-	return 0;
+	return true;
+}
+
+
+int Server::Receive(char* buffer, int  buffer_len)
+{
+	return recv(m_client_socket, buffer, buffer_len, 0);
 }

@@ -16,3 +16,6 @@ client.o: client.cpp client.h
 
 server.o: server.cpp server.h
 	$(CC) $(CPPFLAGS) -c server.cpp
+
+clean:
+	rm *.o server client

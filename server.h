@@ -4,24 +4,34 @@
 class Server
 {
 public:
-	Server() {}
+	Server();
 	~Server() {}
 
 	/**
 	 * Connects to the specified port
 	 * Returns true if successful; false otherwise
 	 */
-	bool Connect(int port);
-	
+	bool Connect(const int port);
+
 	/**
 	 * Listens on the port
 	 * Blocking call
-	 * Returns -1 if m_socket is not connected
+	 * Returns true if a connection is established; false otherwise
 	 */
-	int Listen();
+	bool Listen();
+
+	/**
+	 * Receive a message from a connected client
+	 * Blocking call
+	 * Returns the number of bytes received if successful; -1 otherwise
+	 */
+	int Receive(char* buffer, int buffer_len);
+
+	int CloseClientSocket();
 
 private:
-	int m_socket;
+	int m_socket;			// Socket on which to listen for connection
+	int m_client_socket;	// Socket which is connected to a client
 };
 
 #endif

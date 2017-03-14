@@ -10,7 +10,7 @@
 
 #include "client.h"
 
-bool Client::Connect(char* hostname, int port)
+bool Client::Connect(const char* const hostname, const int port)
 {
 	struct addrinfo  hints, *servinfo, *p;
 	int rv;
@@ -53,4 +53,17 @@ bool Client::Connect(char* hostname, int port)
 	freeaddrinfo(servinfo);
 
 	return true;
+}
+
+// naive send
+ssize_t Client::Send(const char* const message, const int message_length)
+{
+	ssize_t bytes_sent = send(m_socket, message, message_length, 0);
+
+	if (-1 == bytes_sent)
+	{
+		std::cerr << "Error \"" << strerror(errno) << "\"" << std::endl;
+	}
+	
+	return bytes_sent;
 }
