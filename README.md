@@ -6,4 +6,4 @@ Multithreaded Server
 
 SSL/TLS client and server
 
-Automatic promotion of client/server to SSL/TLS as needed in connection
+Automatic promotion of client and server to SSL/TLS as needed in connection
