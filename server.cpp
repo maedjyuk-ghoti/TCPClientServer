@@ -68,7 +68,7 @@ bool Server::Listen()
 }
 
 
-int Server::Receive(char* buffer, int  buffer_len)
+int Server::Receive(char* const buffer, int  buffer_len)
 {
 	return recv(m_client_socket, buffer, buffer_len, 0);
 }
