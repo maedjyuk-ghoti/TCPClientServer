@@ -1,21 +1,29 @@
 CC=clang++
-
+CXX=g++
+RM=rm -f
 CPPFLAGS=
 LDFLAGS=
 
-all: client server
+SRCS=driver.cpp client.cpp server.cpp
+OBJS=$(SRCS:.cpp=.o)
 
-client: client.o client_main.cpp
-	$(CC) $(LDFLAGS) -o client client.o client_main.cpp
+SSLEXES=$(addprefix ssl_,$(EXES))
 
-server: server.o server_main.cpp
-	$(CC) $(LDFLAGS) -o server server.o server_main.cpp
+all: driver
 
-client.o: client.cpp client.h
-	$(CC) $(CPPFLAGS) -c client.cpp
+driver: $(OBJS)
+	$(CXX) $(LDFLAGS) -o driver $(OBJS) $(LDFLAGS)
 
-server.o: server.cpp server.h
-	$(CC) $(CPPFLAGS) -c server.cpp
+depend: .depend
+
+.depend: $(SRCS)
+	$(RM) ./.depend
+	$(CXX) $(CPPFLAGS) -MM $^>>./.depend;
 
 clean:
-	rm *.o server client
+	$(RM) $(OBJS)
+
+distclean: clean
+	$(RM) *~ .depend
+
+include .depend
