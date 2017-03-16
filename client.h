@@ -11,9 +11,9 @@ public:
 	 * Connects to the specified port
 	 * Returns true if successful; false otherwise
 	 */
-	bool Connect(const char* const hostname, const int port);
+	bool Connect(char const * const hostname, int const port);
 
-	ssize_t Send(const char* const message, const int message_length);
+	ssize_t Send(char const * const message, int const message_length);
 
 private:
 	int m_socket;
