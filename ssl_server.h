@@ -18,6 +18,7 @@ public:
 
 private:
 	static SSLCTX* CreateContext();
+
 private:
 	bool ssl_active;
 }
