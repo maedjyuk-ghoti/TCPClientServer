@@ -5,7 +5,7 @@ class Server
 {
 public:
 	Server();
-	~Server() {}
+	~Server();
 
 	int GetListenSocket() { return m_socket; }
 	int GetClientSocket() { return m_client_socket; }
@@ -36,7 +36,6 @@ protected:
 	bool SetListenSocket(int const socket) { m_socket = socket; return true; }
 	bool SetClientSocket(int const socket) { m_client_socket = socket; return true; }
 
-private:
 	int m_socket;			// Socket on which to listen for connection
 	int m_client_socket;	// Socket which is connected to a client
 };

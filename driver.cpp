@@ -72,7 +72,7 @@ int client(bool const ssl)
 		std::cerr << "Error sending message" << std::endl;
 	}
 
-	delete m_client();
+	delete m_client;
 
 	return 0;
 }

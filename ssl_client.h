@@ -1,7 +1,7 @@
 #ifndef SSL_CLIENT_H
-#define SS_CLIENT_H
+#define SSL_CLIENT_H
 
-#include <client.h>
+#include "client.h"
 
 class SSLClient : public Client
 {
@@ -16,4 +16,6 @@ public:
 
 private:
 	bool ssl_active;
-}
+};
+
+#endif
