@@ -13,6 +13,19 @@ Server::Server()
 }
 
 
+Server::~Server()
+{
+	if (0 != m_client_socket)
+	{
+		close(m_client_socket);
+	}
+	if (0 != m_socket)
+	{
+		close(m_socket);
+	}
+}
+
+
 bool Server::Connect(const int port)
 {
 	struct sockaddr_in addr;
