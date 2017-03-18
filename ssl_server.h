@@ -17,10 +17,17 @@ public:
 	int Receive(char* const buffer, int const buffer_len);
 
 private:
-	static SSLCTX* CreateContext();
+	void InitOpenSSL();
+	void GenerateContext();
+
+	// These are used in GenerateContext
+	static SSL_CTX* CreateContext();
+	static void ConfigureContext(SSL_CTX* const ssl_context);
 
 private:
+	SSL* ssl;
+	SSL_CTX* ssl_context;
 	bool ssl_active;
-}
+};
 
 #endif
